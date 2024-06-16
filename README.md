@@ -1,16 +1,53 @@
-# credential_manager_example
 
-Demonstrates how to use the credential_manager plugin.
+## Registration
 
-## Getting Started
+- **Get the required payload for `/register/start` endpoint:**
+  
+  ```dart
+  final res = await AuthService.passKeyRegisterInit(username: username!);
+  ```
 
-This project is a starting point for a Flutter application.
+- **Send the payload to Credential Manager to initiate the user approval flow for registration:**
+  
+  ```dart
+  final credResponse = await AuthService.credentialManager.savePasskeyCredentials(request: res);
+  ```
 
-A few resources to get you started if this is your first Flutter project:
+- **After user approval, send the data to `/register/complete` API for verification and user creation:**
+  
+  ```dart
+  final user = await AuthService.passKeyRegisterFinish(
+      username: username!,
+      challenge: res.challenge,
+      request: credResponse,
+  );
+  ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Sign-In
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Make a GET request to `/login/start` endpoint to retrieve `challenge` and other payload:**
+  
+  ```dart
+  final res = await AuthService.passKeyLoginInit();
+  ```
+
+- **Initiate the user approval flow for sign-in by sending the request data from `/login/start` to `CredentialManager`:**
+  
+  ```dart
+  final credResponse = await AuthService.credentialManager.getPasswordCredentials(
+      passKeyOption: CredentialLoginOptions(
+          challenge: res.challenge,
+          rpId: res.rpId,
+          userVerification: res.userVerification,
+      ),
+  );
+  ```
+
+- **Verify the user by sending the data returned from `getPasswordCredentials` method to `/login/complete/` endpoint to retrieve the user object:**
+  
+  ```dart
+  final user = await AuthService.passKeyLoginFinish(
+      challenge: res.challenge,
+      request: credResponse.publicKeyCredential!,
+  );
+  ```
