@@ -8,8 +8,8 @@ import 'package:http/http.dart' as http;
 
 class AuthService {
   // Base URL for the API
-  static const String _baseUrl = String.fromEnvironment('BASE_URL',
-      defaultValue: "http://192.168.0.108:8080");
+  static const String _baseUrl =
+      String.fromEnvironment('BASE_URL', defaultValue: "http://localhost:3000");
 
   // Initialize passkey registration
   static Future<CredentialCreationOptions> passKeyRegisterInit(

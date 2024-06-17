@@ -69,10 +69,10 @@ packages:
     dependency: "direct main"
     description:
       name: credential_manager
-      sha256: d235ba12f2a907788ad74b4fec1d5c4fa47074cc1bba533da172f1ad61b06f60
+      sha256: "71d4c477ad5f435a920ea5ce0e30be10f037d81246e3c21b66c6bd1edc9d49b3"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   crypto:
     dependency: transitive
     description:
