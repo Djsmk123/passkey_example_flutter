@@ -1,10 +1,8 @@
 import 'package:credential_manager_example/auth_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'model/user_model.dart';
-
 class HomeScreen extends StatelessWidget {
-  final UserModel user;
+  final String user;
   const HomeScreen({super.key, required this.user});
 
   @override
@@ -30,7 +28,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'Welcome ${user.username}',
+                'Welcome $user',
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
